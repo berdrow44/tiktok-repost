@@ -26,7 +26,8 @@ jobs:
       - name: Installer
         run: |
           pip install -q -r requirements.txt
-          pip install -q -U yt-dlp
+          pip install -q -U "yt-dlp[default,curl-cffi]"
+          sudo apt-get install -y -qq ffmpeg
 
       - name: Reposter les nouveaux TikTok
         env:
