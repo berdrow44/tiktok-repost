@@ -2,8 +2,8 @@ name: TikTok vers YouTube
 
 on:
   schedule:
-    - cron: "*/15 * * * *"   # toutes les 15 minutes
-  workflow_dispatch:          # bouton "Run workflow" pour tester
+    - cron: "*/15 * * * *"   # secours (GitHub le lance rarement) ; le vrai rythme vient de cron-job.org
+  workflow_dispatch:          # lancé par cron-job.org ou le bouton "Run workflow"
 
 permissions:
   contents: write
@@ -29,12 +29,9 @@ jobs:
           pip install -q -U "yt-dlp[default,curl-cffi]"
           sudo apt-get install -y -qq ffmpeg
 
-      - name: Reposter les nouveaux TikTok
+      - name: Reposter les nouveaux TikTok (tous les comptes de comptes.json)
         env:
-          TIKTOK_USERNAME: ${{ secrets.TIKTOK_USERNAME }}
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
-          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          SECRETS_JSON: ${{ toJSON(secrets) }}
           YT_PRIVACY: ${{ vars.YT_PRIVACY || 'public' }}
         run: python repost.py
 
@@ -43,5 +40,5 @@ jobs:
         run: |
           git config user.name "repost-bot"
           git config user.email "repost-bot@users.noreply.github.com"
-          git add seen.json 2>/dev/null || true
+          git add seen*.json 2>/dev/null || true
           git diff --cached --quiet || (git commit -m "Vidéos traitées" && git push)
