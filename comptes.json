@@ -1,0 +1,12 @@
+[
+ {
+  "tiktok": "alienducinema",
+  "jeton": "YT_REFRESH_TOKEN",
+  "memoire": "seen.json"
+ },
+ {
+  "tiktok": "histoire_ps1",
+  "jeton": "YT_REFRESH_TOKEN_HISTOIRE",
+  "memoire": "seen_histoire_ps1.json"
+ }
+]
