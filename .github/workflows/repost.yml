@@ -31,7 +31,10 @@ jobs:
 
       - name: Reposter les nouveaux TikTok (tous les comptes de comptes.json)
         env:
-          SECRETS_JSON: ${{ toJSON(secrets) }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          YT_REFRESH_TOKEN_HISTOIRE: ${{ secrets.YT_REFRESH_TOKEN_HISTOIRE }}
           YT_PRIVACY: ${{ vars.YT_PRIVACY || 'public' }}
         run: python repost.py
 
